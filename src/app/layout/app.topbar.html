@@ -1,0 +1,76 @@
+<div class="layout-topbar rounded-lg">
+		<p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
+
+	<div class="layout-topbar-actions">
+		<p-iconfield class="w-60" (click)="visibleSearchDialog=true">
+			<p-inputicon styleClass="pi pi-search" />
+			<input id="search" pInputText [(ngModel)]="value3" class="w-full" type="text" placeholder="Ürün veya Tedarikçi Ara..." />
+		</p-iconfield>
+		<div class="layout-config-menu">
+			<button type="button" class="layout-topbar-action" (click)="toggleDarkMode()">
+				<i [ngClass]="{ 'pi ': true, 'pi-moon': layoutService.isDarkTheme(), 'pi-sun': !layoutService.isDarkTheme() }"></i>
+			</button>
+			<div class="relative">
+				<button class="layout-topbar-action layout-topbar-action-highlight" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden" leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true">
+					<i class="pi pi-palette"></i>
+				</button>
+				<app-configurator />
+			</div>
+		</div>
+
+		<button class="layout-topbar-menu-button layout-topbar-action" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden" leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true">
+			<i class="pi pi-ellipsis-v"></i>
+		</button>
+
+		<div class="layout-topbar-menu hidden lg:block">
+			<div class="layout-topbar-menu-content">
+				<button type="button" class="layout-topbar-action">
+					<i class="pi pi-calendar"></i>
+					<span>Calendar</span>
+				</button>
+				<button type="button" class="layout-topbar-action">
+					<i class="pi pi-inbox"></i>
+					<span>Messages</span>
+				</button>
+				<button type="button" class="layout-topbar-action">
+					<i class="pi pi-user"></i>
+					<span>Profile</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<p-dialog [closable]="false" [modal]="true" [showHeader]="false" [(visible)]="visibleSearchDialog" position="top" [style]="{ width: '40vw',minHeight:'300px' }">
+	<div class="flex w-full gap-2">
+		<div class="flex justify-center">
+			<p-select [options]="searchTypes" size="large" [(ngModel)]="selectedType" appendTo="body"    optionLabel="label" class="w-full md:w-56" />
+		</div>
+
+		<div class="flex-1 w-full">
+			<p-autocomplete size="large" styleClass="w-full" appendTo="body" [(ngModel)]="selectedSearchItem" inputStyleClass="w-full" placeholder="Ürün veya tedarikçi araması yapabilirsiniz." [suggestions]="allData.items" (completeMethod)="searchData($event)" (onSelect)="route();" optionLabel="name">
+				<ng-template let-data #item>
+					<div class="flex items-center gap-2">
+						<!-- <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + data.code.toLowerCase()" style="width: 18px" /> -->
+						<div>{{ data.name }}</div>
+					</div>
+				</ng-template>
+				<!-- <ng-template #header>
+					<div class="font-medium px-3 py-2"></div>
+				</ng-template> -->
+				<ng-template #footer>
+					<div class="px-3 py-3">
+						<p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+					</div>
+				</ng-template>
+			</p-autocomplete>
+		</div>
+	</div>
+
+	<ng-template #footer>
+		<div class="flex justify-end gap-2">
+			<p-button label="Kapat" severity="secondary" (click)="visibleSearchDialog = false" />
+
+		</div>
+	</ng-template>
+</p-dialog>

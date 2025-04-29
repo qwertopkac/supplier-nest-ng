@@ -1,0 +1,17 @@
+<p-dialog header="Teknik Özellik" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+	<div class="flex flex-col gap-4 p-2">
+		<p-floatlabel variant="on" class="w-full">
+			<input pInputText id="on_label" [(ngModel)]="objData.Code" autocomplete="off" class="w-full" />
+			<label for="on_label">Özellik</label>
+		</p-floatlabel>
+		<p-floatlabel variant="on" class="w-full">
+			<input pInputText id="on_label" [(ngModel)]="objData.Code" autocomplete="off" class="w-full" />
+			<label for="on_label">Değer</label>
+		</p-floatlabel>
+	</div>
+
+	<ng-template #footer>
+		<p-button label="Cancel" severity="secondary" (click)="visible = false" />
+		<p-button label="Save" (click)="visible = false" />
+	</ng-template>
+</p-dialog>

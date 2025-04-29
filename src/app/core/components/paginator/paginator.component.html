@@ -1,0 +1,12 @@
+<p-paginator
+class="w-full"
+styleClass="w-full"
+	(onPageChange)="onPageChange.emit($event)"
+	[pageLinkSize]="allItems().pages"
+	[rows]="allItems().size"
+	[totalRecords]="allItems().count"
+	[rowsPerPageOptions]="[5,10, 20, 30,50,100,250]"
+	[showFirstLastIcon]="true"
+	[showCurrentPageReport]="true"
+	currentPageReportTemplate="Toplam {{ allItems().count }} kayıt mevcut.  {{ (allItems().index * allItems().size)+1 }}. ile  {{ allItems().index * allItems().size + allItems().size }}. kayıtlar arası gösteriliyor."
+/>

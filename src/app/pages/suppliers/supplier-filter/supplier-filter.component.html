@@ -1,0 +1,10 @@
+<h5><i class="pi pi-filter"></i> &nbsp; Filters</h5>
+
+<!-- <p-tree [filter]="true" scrollHeight="70vh" filterMode="strict" [value]="files" selectionMode="checkbox"
+    [(selection)]="selectedFiles" /> -->
+
+<div class="flex items-start">
+	<p-tree scrollHeight="70vh" class="w-full md:w-[25rem]" [value]="files" selectionMode="checkbox" [(selection)]="selectedFiles" [contextMenu]="cm" />
+	<p-contextMenu #cm [model]="files" />
+	<p-toast />
+</div>

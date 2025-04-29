@@ -1,0 +1,80 @@
+ <app-card-table-template>
+        <p-table #dt2 [value]="allData.items" [scrollable]="true" scrollHeight="flex" [showLoader]="true"
+            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
+            <ng-template #caption>
+                <div class="flex justify-between">
+                    <span class="text-xl font-bold">Çelik Katalogları</span>
+
+                    <div>
+                        <p-iconfield iconPosition="left" class="ml-auto">
+                            <p-inputicon>
+                                <i class="pi pi-search"></i>
+                            </p-inputicon>
+                            <input pInputText type="text" #searchdt
+                                (input)="dt2.filterGlobal(searchdt.value, 'contains')" placeholder="Arama Yapınız..." />
+                        </p-iconfield>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template #header>
+                <tr>
+                    <th>Firma</th>
+                    <th>Ürün Resim</th>
+                    <th>Ürün Grubu Sayısı</th>
+                    <th>Ürün Sayısı</th>
+                    <th>#</th>
+                    <!-- <th>Reviews</th>
+            <th>Status</th> -->
+                </tr>
+            </ng-template>
+            <ng-template #body let-data>
+                <tr>
+                    <td>
+                        <div class="flex gap-4">
+                            <img *ngIf="!data.image" [alt]="data.companyName" class="object-cover" width="150"
+                                src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+                            <img *ngIf="data.image"
+                                [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + data.image"
+                                [alt]="data.name" width="150" />
+
+                            <h6>{{ data.companyName }}</h6>
+                        </div>
+                    </td>
+                    <td>
+                        <img *ngIf="!data.categoryImage" [alt]="data.categoryName" class="object-cover" width="150"
+                            src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+                        <img *ngIf="data.categoryImage"
+                            [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + data.image"
+                            [alt]="data.categoryName" width="150" />
+                    </td>
+                    <td>{{ data.productsCount }}</td>
+                    <td>{{ data.itemsCount }}</td>
+                    <td>
+                        <p-button label="Kataloga Git" outlined="true" icon="pi pi-arrow-right"
+                            iconPos="right"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template #summary>
+                <div class="flex items-center justify-center w-full">
+                    <div>
+                        <p-button icon="pi pi-star" outlined />
+                    </div>
+                    <div class="flex-1">
+                        <paginator [allItems]="allData" (onPageChange)="fillData($event)"></paginator>
+                    </div>
+                    <div class="justify-end">
+                        <p-button icon="pi pi-search" />
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template #emptymessage>
+                <tr>
+                    <td colspan="5">No customers found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+</app-card-table-template>

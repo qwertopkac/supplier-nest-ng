@@ -1,0 +1,67 @@
+<div class="card">
+<div class="h-[84vh]">
+    <p-table #dt2 [value]="allData.items" styleClass="w-full" [scrollable]="true" scrollHeight="flex" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
+        <ng-template #caption>
+            <div class="flex justify-between">
+                <span class="text-xl font-bold">Son Hareketler</span>
+
+                <div>
+                    <p-iconfield iconPosition="left" class="ml-auto">
+                        <p-inputicon>
+                            <i class="pi pi-search"></i>
+                        </p-inputicon>
+                        <input pInputText type="text" #searchdt (input)="dt2.filterGlobal(searchdt.value, 'contains')" placeholder="Arama Yapınız..." />
+                    </p-iconfield>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #header>
+            <tr>
+                <th>Adı</th>
+                <th>O.Tarih</th>
+                <th>Kişi</th>
+                <th>Durum</th>
+                <th>Alıntılar</th>
+                <th>Görünümler</th>
+                <th>
+                    <p-button icon="pi pi-plus" class="p-button-success" label="Talep Oluştur"></p-button>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-data>
+            <tr>
+                <td>
+                        {{data.name}}
+                </td>
+
+                <td></td>
+                <td>{{ data.category }} {{ data.quantity }}</td>
+                <!-- <td>{{ product.items }}</td> -->
+                <td>
+                    <p-button label="Kataloga Git" outlined="true" icon="pi pi-arrow-right" iconPos="right"></p-button>
+                </td>
+                <!-- <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td> -->
+                <!-- <td>
+            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+        </td> -->
+            </tr>
+        </ng-template>
+
+        <ng-template #summary>
+
+                <div class="flex-1">
+                    <paginator [allItems]="allData" (onPageChange)="fillData($event)"></paginator>
+                </div>
+
+
+        </ng-template>
+        <ng-template #emptymessage>
+            <tr>
+                <td colspan="7">Talep Bulunamadı.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+</div>
+
